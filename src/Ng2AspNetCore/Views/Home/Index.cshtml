@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "SA28 Angular2 Demo";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="libs/css/styles.css">
+}
+
+@section HeadScripts
+{
+    <!-- Setup library polyfills.-->
+    <script src="libs/vendor/es6-shim.min.js"></script>
+    <script src="libs/vendor/zone.js"></script>
+    <script src="libs/vendor/Reflect.js"></script>
+
+    <!-- Setup and configure SystemJS -->
+    <script src="libs/vendor/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+            System.import('app').catch(function (err) { console.error(err); });
+    </script>
+}
+
+<cache vary-by="@Context.Request.Path">
+    <my-app>Loading...</my-app>
+</cache>
