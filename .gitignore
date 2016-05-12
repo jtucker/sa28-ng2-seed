@@ -240,3 +240,5 @@ _Pvt_Extensions
 src/Ng2AspNetCore/typings/
 src/Ng2AspNetCore/wwwroot/app/
 src/Ng2AspNetCore/wwwroot/libs/
+src/Ng2AspNetCore/app/**/*.js
+src/Ng2AspNetCore/app/**/*.map
