@@ -14,6 +14,7 @@
   "files": [
     "./app/app.component.ts",
     "./app/main.ts",
+    "./app/messages/message-list.component.ts",
     "typings/main.d.ts"
   ],
   "exclude": [
