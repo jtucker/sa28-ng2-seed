@@ -5,7 +5,7 @@ var del = require('del');
 var dest = require('gulp-dest');
 
 var paths = {
-    app: ['app/**/*.ts'],
+    app: ['app/**/*.ts', 'app/**/*.html'],
     libs: [
         'node_modules/es6-shim/es6-shim.min.js',
         'node_modules/es6-shim/es6-shim.map',
