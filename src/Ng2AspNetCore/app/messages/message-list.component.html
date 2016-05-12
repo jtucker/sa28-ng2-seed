@@ -1,1 +1,11 @@
 ﻿<h3>Hello from the Message List Component</h3>
+<h2>There are {{ messages.length }} messages available.</h2>
+
+<p>The messages are:</p>
+<ul *ngFor="let msg of messages">
+    <li>
+        <strong>Subject:</strong> {{ msg.subject }} <br/>
+        <strong>Message:</strong> {{ msg.body }} <br/>
+        <strong>Create Date:</strong> {{ msg.createDate | date: 'MM/dd/yyyy' }} <br/>
+    </li>
+</ul>
