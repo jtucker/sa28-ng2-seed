@@ -4,7 +4,7 @@
 <p>The messages are:</p>
 <ul *ngFor="let msg of messages">
     <li>
-        <strong>Subject:</strong> {{ msg.subject }} <br/>
+        <strong>Subject:</strong> <a [routerLink]="['/Detail', { id: msg.id }]">{{ msg.subject }}</a>  <br/>
         <strong>Message:</strong> {{ msg.body }} <br/>
         <strong>Create Date:</strong> {{ msg.createDate | date: 'MM/dd/yyyy' }} <br/>
     </li>

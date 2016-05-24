@@ -15,6 +15,7 @@
     "./app/app.component.ts",
     "./app/main.ts",
     "./app/messages/message-list.component.ts",
+    "./app/messages/message-detail.component.ts",
     "typings/main.d.ts"
   ],
   "exclude": [
