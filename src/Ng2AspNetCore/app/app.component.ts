@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, RouteConfig, Router } from '@angular/router-deprecated';
-import { MessageListComponent } from './messages/message-list.component';
-import { MessageDetailComponent } from './messages/message-detail.component';
+
+import {MessageDetailComponent, MessageListComponent, MessageService } from './messages';
 
 @Component({
     selector: 'my-app',

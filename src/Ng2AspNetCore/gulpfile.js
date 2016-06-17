@@ -38,7 +38,9 @@ gulp.task('copyLibs', function () {
     gulp.src(paths.libs).pipe(gulp.dest(vendorPath));
     gulp.src(paths.css).pipe(gulp.dest(libPath + '/css'));
     gulp.src(modulePath + 'rxjs/**/*.js*').pipe(gulp.dest(vendorPath + 'rxjs'));
-
+    gulp.src(modulePath + 'plugin-typescript/lib/**.js*').pipe(gulp.dest(vendorPath + 'plugin-typescript'));
+    gulp.src(modulePath + 'typescript/lib/typescript.js*').pipe(gulp.dest(vendorPath + 'typescript/lib'));
+    
     for (var i = 0; i < paths.angular.length; i++) {
         var basePath = modulePath + paths.angular[i];
         gulp.src(basePath + '/*.js*').pipe(gulp.dest(vendorPath + paths.angular[i]));

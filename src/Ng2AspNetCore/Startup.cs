@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -8,17 +8,16 @@ namespace Ng2AspNetCore
 {
     public class Startup
     {
-        public Startup( IHostingEnvironment env )
+        public Startup(IHostingEnvironment env )
         {
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("config/appsettings.json")
-                .AddJsonFile($"config/appsettings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile($"config/appsettings.{env.EnvironmentName}.json", true);
             
             builder.AddEnvironmentVariables();
-            Configuration = builder.Build()
-                                   .ReloadOnChanged("config/appsettings.json")
-                                   .ReloadOnChanged($"config/appsettings.{env.EnvironmentName}.json");
+            Configuration = builder.Build();
         }
 
         public IConfigurationRoot Configuration { get; set; }
@@ -36,8 +35,6 @@ namespace Ng2AspNetCore
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseIISPlatformHandler();
-            
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -50,8 +47,5 @@ namespace Ng2AspNetCore
                                 new { controller = "Home", action = "Index" });
             });
         }
-
-        // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

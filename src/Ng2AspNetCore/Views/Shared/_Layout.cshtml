@@ -8,7 +8,6 @@
 
     @RenderSection("Styles", required: false)
 
-    @RenderSection("HeadScripts", required: false)
 </head>
 
 @await FlushAsync()
@@ -17,5 +16,7 @@
     <div>
         @RenderBody()
     </div>
+    @RenderSection("HeadScripts", required: false)
+
 </body>
 </html>
