@@ -1,20 +1,21 @@
-﻿import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+
 import { Message } from './message.model';
+import { MessageService } from './message.service';
+
 @Component({
     selector: `message-list`,    
     templateUrl: `./app/messages/message-list.component.html`,
     directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES]
 })
-export class MessageListComponent {
+export class MessageListComponent implements OnInit {
+    
+    messages: Array<Message>;
+    constructor(private service: MessageService) { }
 
-    messages: Array<Message> = [
-        new Message(1, "Subject 1", "Message Body 1", new Date("07/04/2016")),
-        new Message(2, "Subject 2", "Message Body 2", new Date("05/23/2016")),
-        new Message(3, "Subject 3", "Message Body 3", new Date("09/03/2016"))
-    ]
-
-    constructor() { }
-
+    ngOnInit() {
+        this.service.getMessages().subscribe(results => this.messages = results);
+    }
 }

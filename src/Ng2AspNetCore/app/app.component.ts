@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, RouteConfig, Router } from '@angular/router-deprecated';
 
 import {MessageDetailComponent, MessageListComponent, MessageService } from './messages';
@@ -6,6 +6,7 @@ import {MessageDetailComponent, MessageListComponent, MessageService } from './m
 @Component({
     selector: 'my-app',
     directives: [MessageListComponent, ROUTER_DIRECTIVES],
+    providers: [MessageService],
     template: `
         <h1>SA28 Angular 2 App!</h1>
         <router-outlet></router-outlet>
