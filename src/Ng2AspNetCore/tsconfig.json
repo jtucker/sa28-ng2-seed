@@ -12,14 +12,11 @@
   },
   "compileOnSave": true,
   "files": [
-    "./app/app.component.ts",
-    "./app/main.ts",
-    "./app/messages/message-list.component.ts",
-    "./app/messages/message-detail.component.ts",
-    "typings/main.d.ts"
+    "./app/main.ts"
   ],
   "exclude": [
     "node_modules",
-    "typings/main"
+    "typings/globals",
+    "typings/index.d.ts"
   ]
 }

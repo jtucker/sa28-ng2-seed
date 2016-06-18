@@ -1,9 +1,14 @@
 ﻿/// <binding AfterBuild='copyLibs, copyApp' Clean='clean' />
 
-var gulp = require('gulp');
-var del = require('del');
-var dest = require('gulp-dest');
-
+var gulp = require('gulp'),
+    del = require('del'),
+    dest = require('gulp-dest'),
+    rename = require('gulp-rename'),
+    runSequence = require('run-sequence'),
+    Builder = require('systemjs-builder'),
+    ts = require('gulp-typescript'),
+    inlineNg2Template = require('gulp-inline-ng2-template');
+ 
 var paths = {
     app: ['app/**/*.ts', "app/**/*.html"],
     libs: [
@@ -30,7 +35,7 @@ var paths = {
     ]
 };
 
-gulp.task('copyLibs', function () {
+gulp.task('copyLibs', function (cb) {
     // Setup paths
     var modulePath = 'node_modules/';
     var libPath = './wwwroot/libs';
@@ -50,11 +55,51 @@ gulp.task('copyLibs', function () {
     }
 });
 
-gulp.task('copyApp', function () {
-    gulp.src(paths.app).pipe(gulp.dest('wwwroot/app'));
+gulp.task('copyDev', function() {
+    return gulp.src('config/environment.dev.ts')
+                .pipe(rename('environment.ts'))
+                .pipe(gulp.dest('app/config/'), { overwrite: true });
+})
+
+gulp.task('copyApp', ['copyDev'], function () {
+    return gulp.src(paths.app).pipe(gulp.dest('wwwroot/app'));
 });
 
 // clean all the generated typescript files
 gulp.task('clean', function () {
     return del(['wwwroot/app/**/*', 'wwwroot/libs/**/*']);
+});
+
+gulp.task('enableProd', function() {
+    gulp.src('config/environment.prod.ts')
+        .pipe(rename('environment.ts'))
+        .pipe(gulp.dest('wwwroot/app/config/', { overwrite: true }));
+});
+
+gulp.task('inlineTemplates', function() {
+    return gulp.src(paths.app)
+                    .pipe(inlineNg2Template())
+                    .pipe(gulp.dest('./wwwroot/app'));
+});
+
+gulp.task('bundleProd', function() {
+    var builder = new Builder('./wwwroot', './wwwroot/systemjs.config.js');
+    return builder.buildStatic('app', 'dist/app.js', { minify: true, mangle: true })
+                  .then(function() { console.log('Production bundle created.'); })
+                  .catch(function(err) { console.log('There was an error: ' + err); });
+});
+
+gulp.task('copyShim', function() {
+    var libPath = './dist/libs';
+    var vendorPath = libPath + '/vendor/';
+    gulp.src(paths.libs).pipe(gulp.dest(vendorPath));
+});
+
+gulp.task('buildProd', function() {
+    runSequence('clean', 
+                'copyLibs', 
+                'inlineTemplates',
+                'enableProd',                
+                'bundleProd', 
+                'copyShim');
 });
