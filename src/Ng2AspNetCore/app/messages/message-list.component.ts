@@ -7,7 +7,7 @@ import { MessageService } from './message.service';
 
 @Component({
     selector: `message-list`,    
-    templateUrl: `./app/messages/message-list.component.html`,
+    templateUrl: './app/messages/message-list.component.html',
     directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class MessageListComponent implements OnInit {
